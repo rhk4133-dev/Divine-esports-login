@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Player Login</h2>
+  <input type="email" id="loginEmail" placeholder="Enter Email">
+  <input type="password" id="loginPassword" placeholder="Enter Password">
+  <button onclick="login()">Login</button>
+  <p><a href="register.html">Create new account</a></p>
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } 
+from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "login-93d2c.firebaseapp.com",
+  projectId: "login-93d2c",
+  storageBucket: "login-93d2c.firebasestorage.app",
+  messagingSenderId: "550316337640",
+  appId: "1:550316337640:web:6d5613ab4c0c888faa5c5d"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.login = function () {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      window.location.href = "dashboard.html";
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+};
+
+</script>
+</body>
+</html>
