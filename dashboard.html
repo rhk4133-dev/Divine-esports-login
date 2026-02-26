@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Welcome Player 🔥</h2>
+  <p id="userEmail"></p>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getAuth, signOut, onAuthStateChanged } 
+from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "login-93d2c.firebaseapp.com",
+  projectId: "login-93d2c",
+  storageBucket: "login-93d2c.firebasestorage.app",
+  messagingSenderId: "550316337640",
+  appId: "1:550316337640:web:6d5613ab4c0c888faa5c5d"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    document.getElementById("userEmail").innerText = user.email;
+  } else {
+    window.location.href = "login.html";
+  }
+});
+
+window.logout = function () {
+  signOut(auth).then(() => {
+    window.location.href = "login.html";
+  });
+};
+
+</script>
+</body>
+</html>
